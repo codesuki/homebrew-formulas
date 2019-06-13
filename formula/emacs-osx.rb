@@ -30,6 +30,7 @@ class EmacsOsx < Formula
     def install
       args = %W[
             --prefix=#{prefix}
+            --disable-dependency-tracking
             --disable-silent-rules
             --with-ns
             --with-module
@@ -37,6 +38,7 @@ class EmacsOsx < Formula
             --with-gnutls
             --with-imagemagick
             --with-rsvg
+            --with-xwidgets
         ]
       if build.head?
         system "./autogen.sh"
