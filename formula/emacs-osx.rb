@@ -38,7 +38,6 @@ class EmacsOsx < Formula
             --with-gnutls
             --with-imagemagick
             --with-rsvg
-            --with-xwidgets
         ]
       if build.head?
         system "./autogen.sh"
