@@ -12,6 +12,7 @@ class EmacsOsx < Formula
     depends_on "jpeg"
     depends_on "librsvg"
     depends_on "little-cms2"
+    depends_on "jansson"
 
     resource "spacemacs-icon" do
       url "https://github.com/nashamri/spacemacs-logo/blob/master/spacemacs.icns?raw=true"
