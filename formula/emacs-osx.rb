@@ -25,6 +25,7 @@ class EmacsOsx < Formula
       depends_on "jansson"
       depends_on "gmp"
       depends_on "texinfo"
+      depends_on "harfbuzz"
     end
 
     def install
@@ -38,6 +39,7 @@ class EmacsOsx < Formula
             --with-gnutls
             --with-imagemagick
             --with-rsvg
+            --with-harfbuzz
         ]
       if build.head?
         system "./autogen.sh"
