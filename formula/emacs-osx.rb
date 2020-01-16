@@ -34,6 +34,7 @@ class EmacsOsx < Formula
             --disable-dependency-tracking
             --disable-silent-rules
             --with-ns
+	    --disable-ns-self-contained
             --with-module
             --with-json
             --with-gnutls
@@ -45,6 +46,17 @@ class EmacsOsx < Formula
         system "./autogen.sh"
       end
       system "./configure", *args
+      if MacOS.version <= :mojave
+        ohai "Force disabling of aligned_alloc on macOS <= Mojave"
+        configure_h_filtered = File.read("src/config.h")
+                                 .gsub("#define HAVE_ALIGNED_ALLOC 1", "#undef HAVE_ALIGNED_ALLOC")
+                                 .gsub("#define HAVE_DECL_ALIGNED_ALLOC 1", "#undef HAVE_DECL_ALIGNED_ALLOC")
+                                 .gsub("#define HAVE_ALLOCA 1", "#undef HAVE_ALLOCA")
+                                 .gsub("#define HAVE_ALLOCA_H 1", "#undef HAVE_ALLOCA_H")
+        File.open("src/config.h", "w") do |f|
+          f.write(configure_h_filtered)
+        end
+      end
       system "make"
       system "make", "install"
       icons_dir = buildpath/"nextstep/Emacs.app/Contents/Resources"
